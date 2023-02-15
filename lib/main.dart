@@ -1,0 +1,138 @@
+import 'package:flutter/material.dart';
+void main(){
+  runApp(MyApp());
+}
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+     home: SafeArea(
+       child: Quiz()
+     ),
+    );
+  }
+}
+class Quiz extends StatefulWidget {
+  const Quiz({Key? key}) : super(key: key);
+
+  @override
+  State<Quiz> createState() => _QuizState();
+}
+
+class _QuizState extends State<Quiz> {
+  List<Icon> scorekeeper=[];
+  int questionNum=0;
+  List<String> question=[
+    'You can lead cow down stairs but not up stairs .',
+    'Approximately one quater of human bones are in feet .',
+    'A slug\'s blood is green ?',
+  ];
+  List<bool> ans =[
+    false,
+    true,
+    true
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          color: Colors.black,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 5,
+                child:Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 30,left: 10,right: 10),
+                    child: Container(child: Text(
+                      question[questionNum],
+                      style: TextStyle(color: Colors.white,wordSpacing:2,fontSize: 22 ),
+                    ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                  child:Container(
+                    margin: EdgeInsets.all(20),
+                    color: Colors.green,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          bool answer=ans[questionNum];
+                          if(answer==false){
+                            scorekeeper.add(
+                              Icon(Icons.check,color: Colors.green,size: 30,),
+                            );
+                          }
+                          else{
+                            scorekeeper.add(
+                              Icon(Icons.close,color: Colors.red,size: 30,),
+                            );
+                          }
+                          questionNum++;
+                        });
+                      },
+                      child: Text('TRUE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),
+                    ),
+                  )
+              ),
+              Expanded(
+                  flex: 1,
+                  child:Container(
+                    margin: EdgeInsets.all(20),
+                    color: Colors.red,
+                    child: TextButton(
+                      onPressed: (){
+                        setState(() {
+                          bool answer =ans[questionNum];
+                          if(answer==true){
+                            scorekeeper.add(
+                              Icon(Icons.check,color: Colors.green,size: 30,),
+                            );
+                          }
+                          else{
+                            scorekeeper.add(
+                              Icon(Icons.close,color: Colors.red,size: 30,),
+                            );
+                          }
+                          questionNum++;
+                        });
+                      },
+                      child: Text('FALSE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),
+                    ),
+                  )
+              ),
+              Expanded(
+                flex: 1,
+                  child: Container(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    child:Row(
+                      children:scorekeeper,
+                    ),
+                  ),
+                ),
+              )),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
