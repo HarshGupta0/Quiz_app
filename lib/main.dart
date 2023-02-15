@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_dey/questions.dart';
 void main(){
   runApp(MyApp());
 }
@@ -30,23 +31,30 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> scorekeeper=[];
-  int questionNum=0;
-  List<String> question=[
-    'You can lead cow down stairs but not up stairs .',
-    'Approximately one quater of human bones are in feet .',
-    'A slug\'s blood is green ?',
-  ];
-  List<bool> ans =[
-    false,
-    true,
-    true
+  var questionNum=0;
+  // List<String> question=[
+  //   'You can lead cow down stairs but not up stairs .',
+  //   'Approximately one quater of human bones are in feet .',
+  //   'A slug\'s blood is green ?',
+  // ];
+  // List<bool> ans =[
+  //   false,
+  //   true,
+  //   true
+  // ];
+  // Here first Question is object of class or datatype of q1 and second is constructor of Question type
+  // Question q1 = Question(q: 'You can lead cow down stairs but not up stairs .',a: false);
+  List<Question>questionBank =[
+    Question('You can lead cow down stairs but not up stairs.',false),
+    Question('Approximately one quater of human bones are in feet .',true ),
+    Question('A slug\'s blood is green ?', true),
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Colors.black,
+          color: Colors.black54,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,7 +65,7 @@ class _QuizState extends State<Quiz> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 30,left: 10,right: 10),
                     child: Container(child: Text(
-                      question[questionNum],
+                      questionBank[questionNum].questiontext,
                       style: TextStyle(color: Colors.white,wordSpacing:2,fontSize: 22 ),
                     ),
                     ),
@@ -72,7 +80,7 @@ class _QuizState extends State<Quiz> {
                     child: TextButton(
                       onPressed: (){
                         setState(() {
-                          bool answer=ans[questionNum];
+                          bool? answer=questionBank[questionNum].questionans;
                           if(answer==false){
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
@@ -98,7 +106,7 @@ class _QuizState extends State<Quiz> {
                     child: TextButton(
                       onPressed: (){
                         setState(() {
-                          bool answer =ans[questionNum];
+                          bool? answer=questionBank[questionNum].questionans;
                           if(answer==true){
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
