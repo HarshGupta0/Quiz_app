@@ -1,7 +1,7 @@
 class Question {
   String questiontext;
   //giving null safety to bool
-  bool? questionans;
+  bool questionans;
   // below a constructor is created name Questions
   Question(this.questiontext,this.questionans);
 }

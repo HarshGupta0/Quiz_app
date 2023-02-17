@@ -32,7 +32,7 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> scorekeeper=[];
-  var questionNum=0;
+
   // List<String> question=[
   //   'You can lead cow down stairs but not up stairs .',
   //   'Approximately one quater of human bones are in feet .',
@@ -66,7 +66,7 @@ class _QuizState extends State<Quiz> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 30,left: 10,right: 10),
                     child: Container(child: Text(
-                      quizBrain.questionBank[questionNum].questiontext,
+                      quizBrain.getQuestionText(),
                       style: TextStyle(color: Colors.white,wordSpacing:2,fontSize: 22 ),
                     ),
                     ),
@@ -81,7 +81,7 @@ class _QuizState extends State<Quiz> {
                     child: TextButton(
                       onPressed: (){
                         setState(() {
-                          bool? answer=quizBrain.questionBank[questionNum].questionans;
+                          bool? answer=quizBrain.getQuestionAns();
                           if(answer==true){
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
@@ -92,7 +92,7 @@ class _QuizState extends State<Quiz> {
                               Icon(Icons.close,color: Colors.red,size: 30,),
                             );
                           }
-                          questionNum++;
+                          quizBrain.NextQuestionNum();
                         });
                       },
                       child: Text('TRUE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),
@@ -107,7 +107,7 @@ class _QuizState extends State<Quiz> {
                     child: TextButton(
                       onPressed: (){
                         setState(() {
-                          bool? answer=quizBrain.questionBank[questionNum].questionans;
+                          bool? answer=quizBrain.getQuestionAns();
                           if(answer==false){
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
@@ -118,7 +118,7 @@ class _QuizState extends State<Quiz> {
                               Icon(Icons.close,color: Colors.red,size: 30,),
                             );
                           }
-                          questionNum++;
+                          quizBrain.NextQuestionNum();
                         });
                       },
                       child: Text('FALSE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),

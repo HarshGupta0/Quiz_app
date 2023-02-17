@@ -1,6 +1,10 @@
 import 'package:quiz_dey/questions.dart';
+// created a new class .... this file is  basically for abstraction and used for
+
 class Quizbrain{
-  List<Question>questionBank =[
+  //by adding _ underscore we have made the private property now it  can not be accessesd by mistakenly
+  int _questionNum=0;
+  List<Question>_questionBank =[
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -26,5 +30,17 @@ class Quizbrain{
     Question(
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
+    Question('JAVA is an object oriented programing langauge',true),
   ];
+  void NextQuestionNum(){
+    if(_questionNum<_questionBank.length-1){
+      _questionNum++;
+    }
+  }
+  String getQuestionText(){
+            return _questionBank[_questionNum].questiontext;
+  }
+  bool getQuestionAns(){
+    return _questionBank[_questionNum].questionans;
+  }
 }
