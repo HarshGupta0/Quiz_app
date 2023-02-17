@@ -93,6 +93,11 @@ class _QuizState extends State<Quiz> {
                             );
                           }
                           quizBrain.NextQuestionNum();
+                          if(quizBrain.isFinished()){
+                            quizBrain.reset();
+                            scorekeeper.clear();
+
+                          }
                         });
                       },
                       child: Text('TRUE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),
@@ -119,6 +124,9 @@ class _QuizState extends State<Quiz> {
                             );
                           }
                           quizBrain.NextQuestionNum();
+                          if(quizBrain.isFinished()){
+                            quizBrain.reset();
+                          }
                         });
                       },
                       child: Text('FALSE',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),

@@ -1,4 +1,6 @@
+
 import 'package:quiz_dey/questions.dart';
+
 // created a new class .... this file is  basically for abstraction and used for
 
 class Quizbrain{
@@ -37,10 +39,32 @@ class Quizbrain{
       _questionNum++;
     }
   }
+  // alert(){
+  //   if(_questionNum==_questionBank.length-1){
+  //     Alert(context:context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+  //   }
+  // }
   String getQuestionText(){
             return _questionBank[_questionNum].questiontext;
   }
   bool getQuestionAns(){
     return _questionBank[_questionNum].questionans;
+  }
+  int getQuestionNumber() {
+    return _questionNum;
+  }
+
+  int getQuestionBankLength() {
+    return _questionBank.length;
+  }
+
+  bool isFinished() {
+    return _questionNum == _questionBank.length - 1;
+  }
+
+  void reset() {
+    if (isFinished()) {
+      _questionNum = 0;
+    }
   }
 }
