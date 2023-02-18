@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_dey/quizbrain.dart';
+import 'package:quiz_dey/score_restart.dart';
+
 Quizbrain quizBrain = Quizbrain();
 void main(){
   runApp(MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -16,6 +19,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/score_restart':(context)=>Score()
+      },
       debugShowCheckedModeBanner: false,
      home: SafeArea(
        child: Quiz()
@@ -32,6 +38,9 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> scorekeeper=[];
+  void pushing(){
+    Future.delayed(Duration(milliseconds: 70),(){Navigator.pushNamed(context, '/score_restart');});
+  }
 
   // List<String> question=[
   //   'You can lead cow down stairs but not up stairs .',
@@ -94,9 +103,11 @@ class _QuizState extends State<Quiz> {
                           }
                           quizBrain.NextQuestionNum();
                           if(quizBrain.isFinished()){
-                            quizBrain.reset();
+                            setState(() {
+                              pushing();
+                            });
                             scorekeeper.clear();
-
+                            quizBrain.reset();
                           }
                         });
                       },
@@ -125,6 +136,10 @@ class _QuizState extends State<Quiz> {
                           }
                           quizBrain.NextQuestionNum();
                           if(quizBrain.isFinished()){
+                            setState(() {
+                              pushing();
+                            });
+                            scorekeeper.clear();
                             quizBrain.reset();
                           }
                         });
