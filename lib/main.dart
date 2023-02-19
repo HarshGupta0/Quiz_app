@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_dey/quizbrain.dart';
-import 'package:quiz_dey/score_restart.dart';
-
 Quizbrain quizBrain = Quizbrain();
+int count=1;
 void main(){
   runApp(MyApp());
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -20,7 +18,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/score_restart':(context)=>Score()
+        '/quiz':(context)=>Quiz(),
+        '/score_restart':(context)=>Score(),
       },
       debugShowCheckedModeBanner: false,
      home: SafeArea(
@@ -29,18 +28,19 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
 class Quiz extends StatefulWidget {
   const Quiz({Key? key}) : super(key: key);
 
   @override
   State<Quiz> createState() => _QuizState();
 }
-
 class _QuizState extends State<Quiz> {
   List<Icon> scorekeeper=[];
   void pushing(){
     Future.delayed(Duration(milliseconds: 70),(){Navigator.pushNamed(context, '/score_restart');});
   }
+
 
   // List<String> question=[
   //   'You can lead cow down stairs but not up stairs .',
@@ -95,6 +95,7 @@ class _QuizState extends State<Quiz> {
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
                             );
+                            count++;
                           }
                           else{
                             scorekeeper.add(
@@ -128,6 +129,7 @@ class _QuizState extends State<Quiz> {
                             scorekeeper.add(
                               Icon(Icons.check,color: Colors.green,size: 30,),
                             );
+                            count++;
                           }
                           else{
                             scorekeeper.add(
@@ -162,6 +164,45 @@ class _QuizState extends State<Quiz> {
               )),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class Score extends StatefulWidget {
+  const Score({Key? key}) : super(key: key);
+
+  @override
+  State<Score> createState() => _ScoreState();
+}
+
+class _ScoreState extends State<Score> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.black54,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(child: Text('SCORE',style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),)),
+            Center(child: Text('$count',style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),)),
+            Container(
+              margin: EdgeInsets.all(30),
+              color: Colors.blue.shade400,
+              child: TextButton(
+                onPressed: (){
+                  setState(() {
+                    Navigator.pushNamed(context,'/quiz');
+                    count=1;
+                  });
+                },
+                child: Text('Restart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18,letterSpacing:2),),
+              ),
+            ),
+          ],
         ),
       ),
     );
